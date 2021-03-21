@@ -14,3 +14,5 @@ Demonstrates Data Storytelling and Visualization through a Case Study on air and
 - Dashboard
 - Executive_Summary
 - Blog
+- Infographic
+- Video
