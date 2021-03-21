@@ -1,4 +1,4 @@
-# Data_Stories - Examples of Data Storytelling and Visualizations
+# Data Stories - Examples of Data Storytelling and Visualizations
 
 ## Description
 Demonstrates Data Storytelling and Visualization through a Case Study on air and highway incident data
