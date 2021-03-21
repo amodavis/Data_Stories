@@ -1,0 +1,52 @@
+---
+title: "DSC640 Project Task3 Charts"
+author: "Amie Davis"
+date: "23 October, 2020"
+output:
+  html_document:
+    df_print: paged
+  html_notebook: default
+  word_document: default
+---
+
+# Load the data into a data frame
+```{r}
+#install.packages("readr")
+library(readr)
+
+# Airline Safety Data
+air_saf_df <- read_csv("../Data/airline-safety.csv")
+head(air_saf_df)
+
+```
+
+# Derived Columns
+```{r}
+
+# Total counts for time periods
+air_saf_df$tot_fatalities <- air_saf_df$fatalities_85_99 + air_saf_df$fatalities_00_14
+air_saf_df$tot_incidents <- air_saf_df$incidents_85_99 + air_saf_df$incidents_00_14
+air_saf_df$tot_fat_acc <- air_saf_df$fatal_accidents_85_99 + air_saf_df$fatal_accidents_00_14
+
+```
+
+# Bubble Chart - 1985-2014
+```{r}
+# Load Packages
+library(plotly)
+
+# Using Area to size bubble
+# Ensure to set size of bubble to area instead of diameter
+fig <- plot_ly(air_saf_df, x= ~tot_incidents, y= ~tot_fatalities, text = ~airline, type = 'scatter', 
+               mode = 'markers', marker = list(size = ~avail_seat_km_per_week/5000000, sizemode = "area", opacity = 0.5))
+
+# Add titles & stacks
+fig <- fig %>% layout(title = 'Incidents and Fatalities By Sales',
+                      xaxis = list(title = "Incidents", showgrid = FALSE, range = c(0, 20)),
+                      yaxis = list(title = "Fatalities", showgrid = FALSE, range = c(0, 100)))
+
+
+fig
+
+orca(fig, "R_bubble.pdf")
+```
